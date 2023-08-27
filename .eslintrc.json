@@ -1,0 +1,46 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "rules": {
+    "no-constant-condition": ["warn"],   /* Raises a warning if a loop or conditional statement has a constant expression (one that always evaluates to the same thing). */
+    "eqeqeq": ["error"],                 /* Enforces the use of triple equals (===) over double equals (==) for equality checks, because == can lead to unexpected type coercion. */
+    "no-array-constructor": ["error"],   /* Disallows the use of the Array constructor to create a new array (i.e., new Array()). Instead, use []. */
+    "block-scoped-var": ["error"],       /* Treats var as if it's block scoped, raising an error if a variable is used outside the block it was declared in. */
+    "consistent-return": ["error"],      /* Ensures that all code paths in a function either return a value or don't return anything. */
+    "dot-notation": ["error"],           /* Encourages the use of dot notation for property access when possible (object.property instead of object['property']). */
+    "no-extend-native": ["error"],       /* Disallows modifying native JavaScript objects, like Array or Object. */
+    "no-extra-bind": ["error"],          /* Raises an error if you use .bind() on a function without necessary. */
+    "no-implied-eval": ["error"],        /* Disallows the use of setTimeout, setInterval, or execScript with a string parameter, which is a form of eval. */
+    "no-lone-blocks": ["error"],         /* Disallows unnecessary nested blocks. */
+    "no-loop-func": ["error"],           /* Disallows the declaration of functions within loops. */
+    "no-multi-str": ["error"],           /* Disallows multi-line string literals. */
+    "no-new-func": ["error"],            /* Disallows the use of the Function constructor. */
+    "no-new-wrappers": ["error"],        /* Disallows the use of String, Number, and Boolean with the new operator. */
+    "no-proto": ["error"],               /* Disallows the use of __proto__. */
+    "no-return-assign": ["error"],       /* Disallows assignment in return statements. */
+    "no-sequences": ["error"],           /* Disallows comma operator with side effects. */
+    "@typescript-eslint/no-unused-expressions": ["error"],  /* Disallows expressions which have no effect on the state of the program. */
+    "@typescript-eslint/no-shadow": ["error"],              /* Disallows variable declarations from shadowing variables declared in the outer scope. */
+    "@typescript-eslint/no-unused-vars": ["error"],         /* An error will be raised if you declare a variable, function, or import that's never used. */
+    "@typescript-eslint/explicit-module-boundary-types": ["error"], /* Enforces explicit return and argument types on exported functions' and classes' public class methods. */
+    "@typescript-eslint/explicit-function-return-type": ["error"],  /* Requires functions to have a explicitly declared return type */
+    "@typescript-eslint/no-explicit-any": ["warn"],         /* Warns on explicit usage of 'any' type. */
+    "@typescript-eslint/no-redeclare": ["error"],           /* Disallows redeclaring variables or types. */
+    "@typescript-eslint/no-unnecessary-condition": ["warn"],/* Warns when a condition has no effect on whether code is executed. */
+    "@typescript-eslint/no-implicit-any-catch": ["warn"]    /* Warns on error catch clauses which implicitly have an 'any' type. */
+  }
+}
