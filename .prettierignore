@@ -1,0 +1,35 @@
+# Ignore artifacts:
+dist
+
+# Node modules and dependencies
+node_modules
+package-lock.json
+
+# Environment secrets and configs
+.env
+.env.test
+.env.local
+.env.development
+.env.production
+
+# Ignore tsconfig files
+tsconfig.json
+tsconfig.dev.json
+tsconfig.prod.json
+
+# Ignore eslint related files
+.eslintrc.json
+
+# Ignore git related files
+.git
+.gitignore
+
+# Jest Coverage
+coverage
+
+# Ignore project config files
+*.config.js
+
+# other
+package.json
+docker-compose.yml
