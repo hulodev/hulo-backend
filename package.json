@@ -2,10 +2,10 @@
   "name": "hulo",
   "version": "1.0.0",
   "description": "An app connecting Eckists across the world.",
-  "main": "src/main.ts",
+  "main": "src/main/main.ts",
   "scripts": {
     "test": "jest",
-    "start": "nodemon --exec ts-node src/main.ts",
+    "start": "nodemon --exec ts-node src/main/main.ts",
     "style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'"
   },
   "author": "Hulo",
