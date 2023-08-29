@@ -10,7 +10,8 @@
     "test": "jest",
     "start-dev": "nodemon --exec ts-node src/main/main.ts",
     "start": "ts-node src/main/main.ts",
-    "style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'"
+    "style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'",
+    "check-style": "eslint '*/**/*.{ts,js}' && prettier --check '**/*.{ts,js,json}'"
   },
   "author": "Hulo",
   "license": "MIT",
