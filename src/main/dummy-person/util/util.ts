@@ -1,4 +1,4 @@
-/* This is a utility file for the dummyPerson Service that currently has a function
+/* This is a utility file for the dummy-person Service that currently has a function
    that transform an object of type IPerson to an Object of type CreatePersonResponse
 */
 

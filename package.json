@@ -4,6 +4,9 @@
   "description": "An app connecting Eckists across the world.",
   "main": "src/main/main.ts",
   "scripts": {
+    "clean": "rm -rf dist",
+    "compile": "tsc --project tsconfig.json",
+    "build": "npm run clean && npm run compile",
     "test": "jest",
     "start": "nodemon --exec ts-node src/main/main.ts",
     "style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'"

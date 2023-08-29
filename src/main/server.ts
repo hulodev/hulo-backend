@@ -1,8 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import routes from './routes/router';
+import routes from './router';
 import dotenv from 'dotenv';
 import logger from './utils/logger';
+import errorHandler from './middleware/error-handler';
 
 dotenv.config();
 
@@ -22,12 +23,13 @@ class Server {
       logger.error('Could not connect to MongoDB', error);
     }
     this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(express.urlencoded({ extended: true }));
     this.routes();
   }
 
   private routes(): void {
     this.app.use('/api', routes);
+    this.app.use(errorHandler);
   }
 
   public start(): void {
