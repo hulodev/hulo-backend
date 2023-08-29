@@ -12,7 +12,7 @@ import { toCreatePersonResponse } from '../util/util';
 // imports the method that handles the logic to create a person from the service/person folder
 import executeCreatePerson from '../services/person/create-person';
 // imports the method that handles the logic to get a persons age from the service/person folder
-import executeGetAge from "../services/person/get-age";
+import executeGetAge from '../services/person/get-age';
 
 /**
  * method receives a request and response object and returns a void promise. This method calls the executeCreatePerson
