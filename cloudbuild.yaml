@@ -13,20 +13,8 @@ steps:
     id: 'Tests and Coverage'
   # Build and push container image to the Artifactory Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:version1', '.' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1', '.' ]
     id: 'Build'
-  # Deploy container image to Cloud Run
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'hulo-gcp'
-      - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:version1'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-    id: 'Deploy'
+  # Cloud Build trigger will deploy the app automatically
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:version1'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
