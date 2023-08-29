@@ -18,3 +18,13 @@ export interface CreatePersonResponse {
   name: string;
   age: number;
 }
+
+export interface GetAgeRequest extends Request {
+  body: {
+    personId: string;
+  };
+}
+
+export interface GetAgeResponse {
+  age: number;
+}
