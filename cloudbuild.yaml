@@ -22,7 +22,7 @@ steps:
       - 'deploy'
       - 'hulo-gcp'
       - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:version1'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
       - '--region'
       - 'us-central1'
       - '--platform'
