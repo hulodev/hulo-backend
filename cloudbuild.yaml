@@ -21,7 +21,7 @@ steps:
       - 'run'
       - 'deploy'
       - 'hulo-gcp'
-      - 'image'
+      - '--image'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:version1'
       - '--region'
       - 'us-central1'
