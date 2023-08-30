@@ -17,10 +17,11 @@ class Server {
 
   private async config(): Promise<void> {
     try {
-      await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/hulo');
+      await mongoose.connect(process.env.MONGO_URI as string);
       logger.info('Successfully connected to MongoDB');
     } catch (error) {
       logger.error('Could not connect to MongoDB', error);
+      process.exit(1);
     }
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
