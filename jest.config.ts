@@ -5,7 +5,14 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   collectCoverage: true,
   coverageReporters: ['lcov', 'text-summary'],
-  collectCoverageFrom: ['src/**/*.ts'], //add files that we want to exclude from testing.
+  collectCoverageFrom: [
+      'src/**/*.ts',
+      '!src/main/main.ts',
+      '!src/main/server.ts',
+      '!src/main/router.ts',
+      '!src/main/utils/logger.ts',
+      '!src/main/dummy-person/**/*.ts' // todo: temporary exclusion of dummy-person folder. uncomment to test
+  ], // add files that we want to exclude from testing by adding !.
   coverageThreshold: {
     global: {
       statements: 80,
@@ -13,7 +20,9 @@ const config: Config.InitialOptions = {
       functions: 80,
       lines: 80
     }
-  }
+  }, // coverage settings
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
+  setupFiles: ['./setEnvVars.js'], // env test variables
 };
 
 export default config;
