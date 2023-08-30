@@ -15,6 +15,18 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1', '.' ]
     id: 'Build'
-  # Cloud Build trigger will deploy the app automatically
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'hulo-gcp'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
+      - '--region'
+      - 'us-central1'
+      - '--platform'
+      - 'managed'
+    id: 'Deploy'
 images:
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
