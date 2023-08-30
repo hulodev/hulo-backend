@@ -19,7 +19,7 @@ class Server {
     try {
       await mongoose.connect(process.env.MONGO_URI as string);
       logger.info('Successfully connected to MongoDB');
-    } catch (error) {
+    } catch (error: unknown) {
       logger.error('Could not connect to MongoDB', error);
       process.exit(1);
     }
@@ -34,7 +34,7 @@ class Server {
   }
 
   public start(): void {
-    const port = process.env.PORT || 8080;
+    const port = process.env.PORT;
     this.app.listen(port, () => {
       logger.info(`Server is listening on port ${port}`);
     });
