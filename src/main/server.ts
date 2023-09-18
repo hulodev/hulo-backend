@@ -17,10 +17,11 @@ class Server {
 
   private async config(): Promise<void> {
     try {
-      await mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/hulo');
+      await mongoose.connect(process.env.MONGO_URI!);
       logger.info('Successfully connected to MongoDB');
-    } catch (error) {
+    } catch (error: unknown) {
       logger.error('Could not connect to MongoDB', error);
+      process.exit(1);
     }
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
@@ -33,7 +34,7 @@ class Server {
   }
 
   public start(): void {
-    const port = process.env.PORT || 8080;
+    const port = process.env.PORT;
     this.app.listen(port, () => {
       logger.info(`Server is listening on port ${port}`);
     });
