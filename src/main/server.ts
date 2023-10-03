@@ -15,14 +15,7 @@ class Server {
     this.config();
   }
 
-  private async config(): Promise<void> {
-    try {
-      await mongoose.connect(process.env.MONGO_URI!);
-      logger.info('Successfully connected to MongoDB');
-    } catch (error: unknown) {
-      logger.error('Could not connect to MongoDB', error);
-      process.exit(1);
-    }
+  private config(): void {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.routes();
@@ -33,7 +26,15 @@ class Server {
     this.app.use(errorHandler);
   }
 
-  public start(): void {
+  public async start(): Promise<void> {
+    try {
+      await mongoose.connect(process.env.MONGO_URI!);
+      logger.info('Successfully connected to MongoDB');
+    } catch (error: unknown) {
+      logger.error('Could not connect to MongoDB', error);
+      process.exit(1);
+    }
+
     const port = process.env.PORT;
     this.app.listen(port, () => {
       logger.info(`Server is listening on port ${port}`);
