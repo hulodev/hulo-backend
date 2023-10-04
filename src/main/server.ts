@@ -4,6 +4,7 @@ import routes from './router';
 import dotenv from 'dotenv';
 import logger from './utils/logger';
 import errorHandler from './middleware/error-handler';
+import verifyToken from './middleware/auth-verification';
 
 dotenv.config();
 
@@ -15,7 +16,19 @@ class Server {
     this.config();
   }
 
-  private async config(): Promise<void> {
+  private config(): void {
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.routes();
+  }
+
+  private routes(): void {
+    this.app.use(verifyToken);
+    this.app.use('/api', routes);
+    this.app.use(errorHandler);
+  }
+
+  public async start(): Promise<void> {
     try {
       await mongoose.connect(process.env.MONGO_URI!);
       logger.info('Successfully connected to MongoDB');
@@ -23,17 +36,7 @@ class Server {
       logger.error('Could not connect to MongoDB', error);
       process.exit(1);
     }
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
-    this.routes();
-  }
 
-  private routes(): void {
-    this.app.use('/api', routes);
-    this.app.use(errorHandler);
-  }
-
-  public start(): void {
     const port = process.env.PORT;
     this.app.listen(port, () => {
       logger.info(`Server is listening on port ${port}`);
