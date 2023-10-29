@@ -15,7 +15,7 @@ const authToken = async (req: Request, _res: Response, next: NextFunction) => {
   const token = authHeader.split('Bearer ')[1];
 
   try {
-    const decodedToken = verifyToken(token);
+    const decodedToken = await verifyToken(token);
     req.userId = decodedToken.uid;
     next();
   } catch (error) {
