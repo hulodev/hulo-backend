@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { UnAuthorizedError } from '../utils/errors';
 import verifyToken from '../external-api/firebase/firebase-verify-token';
 
-const authToken = async (req: Request, _res: Response, next: NextFunction) => {
+const authToken = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -18,7 +18,7 @@ const authToken = async (req: Request, _res: Response, next: NextFunction) => {
     const decodedToken = await verifyToken(token);
     req.userId = decodedToken.uid;
     next();
-  } catch (error) {
+  } catch (error: unknown) {
     throw new UnAuthorizedError('Unauthorized Token');
   }
 };

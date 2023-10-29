@@ -23,4 +23,9 @@ const asyncRoute = (routeMethod: AsyncRouteMethodType, successStatusCode = 200) 
   };
 };
 
-export { asyncRoute };
+const validateEnv = (envVar: string | undefined): string => {
+  if (!envVar) throw new Error(`${envVar} is undefined`);
+  return envVar;
+};
+
+export { asyncRoute, validateEnv };

@@ -21,5 +21,5 @@ export interface RegisterUserResponse {
   isEckist: boolean;
   dateOfBirth: string;
   gender: string;
-  mailingListPreference: Boolean;
+  mailingListPreference: boolean;
 }
