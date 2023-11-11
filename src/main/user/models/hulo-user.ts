@@ -12,6 +12,18 @@ export interface HuloUserModel extends Document {
   mailingListPreference: boolean;
 }
 
+export interface HuloUserData {
+  userId: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  username: string;
+  isEckist: boolean;
+  dateOfBirth: string;
+  gender: string;
+  mailingListPreference: boolean;
+}
+
 const HuloSchema: Schema = new Schema(
   {
     userId: { type: String, required: true },

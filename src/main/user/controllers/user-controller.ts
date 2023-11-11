@@ -3,28 +3,18 @@ import { toRegisterUserResponse } from '../util/util';
 import executeRegisterUser from '../services/register-user';
 
 const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
-  const {
-    firstName,
-    lastName,
-    emailAddress,
-    username,
-    isEckist,
-    dateOfBirth,
-    gender,
-    mailingListPreference
-  } = req.body;
+  const userData = req.body;
 
-  const userId = req.userId;
   const userInfo = {
-    userId,
-    firstName,
-    lastName,
-    emailAddress,
-    username,
-    isEckist,
-    dateOfBirth,
-    gender,
-    mailingListPreference
+    userId: req.userId,
+    firstName: userData.firstName,
+    lastName: userData.lastName,
+    emailAddress: userData.emailAddress,
+    username: userData.username,
+    isEckist: userData.isEckist,
+    dateOfBirth: userData.dateOfBirth,
+    gender: userData.gender,
+    mailingListPreference: userData.mailingListPreference
   };
 
   const user = await executeRegisterUser(userInfo);

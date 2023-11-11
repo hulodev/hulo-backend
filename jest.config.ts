@@ -12,6 +12,7 @@ const config: Config.InitialOptions = {
       '!src/main/router.ts',
       '!src/main/utils/logger.ts',
       '!src/main/dummy-person/**/*.ts' // todo: temporary exclusion of dummy-person folder. uncomment to test
+
   ], // add files that we want to exclude from testing by adding !.
   coverageThreshold: {
     global: {

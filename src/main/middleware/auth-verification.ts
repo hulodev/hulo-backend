@@ -5,21 +5,18 @@ import verifyToken from '../external-api/firebase/firebase-verify-token';
 const authToken = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) {
-    throw new UnAuthorizedError('Authorization header is missing');
-  }
-  if (!authHeader.startsWith('Bearer ')) {
-    throw new UnAuthorizedError('Unknown authentication scheme');
-  }
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    next(new UnAuthorizedError('Authorization header is missing or invalid'));
+  } else {
+    const token = authHeader.split('Bearer ')[1];
 
-  const token = authHeader.split('Bearer ')[1];
-
-  try {
-    const decodedToken = await verifyToken(token);
-    req.userId = decodedToken.uid;
-    next();
-  } catch (error: unknown) {
-    throw new UnAuthorizedError('Unauthorized Token');
+    try {
+      const decodedToken = await verifyToken(token);
+      req.userId = decodedToken.uid;
+      next();
+    } catch (error: unknown) {
+      next(error);
+    }
   }
 };
 
