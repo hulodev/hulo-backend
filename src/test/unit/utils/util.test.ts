@@ -56,14 +56,20 @@ describe('AsyncRoute', () => {
     // then
     expect(next).toHaveBeenCalledWith(error);
   });
+});
 
+describe('ValidateEnv', () => {
   it('should throw an error if environment variable is not defined', () => {
-    const input = undefined;
-    expect(() => validateEnv(input)).toThrowError('environment variable is not defined');
+    const envVarValue = undefined;
+    const envVar = 'ENV_VAR';
+    expect(() => validateEnv(envVarValue, envVar)).toThrowError(
+      `Environment variable ${envVar} is not defined`
+    );
   });
 
   it('should return environment variable if it is defined', () => {
-    const testEnvVar = 'test value';
-    expect(validateEnv(testEnvVar)).toBe(testEnvVar);
+    const envVarValue = 'test value';
+    const envVar = 'ENV_VAR';
+    expect(validateEnv(envVarValue, envVar)).toBe(envVarValue);
   });
 });

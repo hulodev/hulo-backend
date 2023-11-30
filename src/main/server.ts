@@ -4,7 +4,7 @@ import routes from './router';
 import dotenv from 'dotenv';
 import logger from './utils/logger';
 import errorHandler from './middleware/error-handler';
-import verifyToken from './middleware/auth-verification';
+import verifyToken from './middleware/auth-handler';
 import { validateEnv } from './utils/util';
 
 dotenv.config();
@@ -31,7 +31,7 @@ class Server {
 
   public async start(): Promise<void> {
     try {
-      await mongoose.connect(validateEnv(process.env.MONGO_URI));
+      await mongoose.connect(validateEnv(process.env.MONGO_URI, 'MONGO_URI'));
       logger.info('Successfully connected to MongoDB');
     } catch (error: unknown) {
       logger.error('Could not connect to MongoDB', error);

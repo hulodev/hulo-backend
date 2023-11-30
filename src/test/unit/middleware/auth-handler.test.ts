@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import authToken from '../../../main/middleware/auth-verification';
-import { UnAuthorizedError } from '../../../main/utils/errors';
-import verifyToken from '../../../main/external-api/firebase/firebase-verify-token';
+import authToken from '../../../main/middleware/auth-handler';
+import { UnauthorizedError } from '../../../main/utils/errors';
+import verifyToken from '../../../main/external-api/firebase/firebase';
 
 // mock firebase verifyToken
-jest.mock('../../../main/external-api/firebase/firebase-verify-token');
+jest.mock('../../../main/external-api/firebase/firebase');
 
 describe('authToken', () => {
   let mockReq: Partial<Request>;
@@ -29,7 +29,7 @@ describe('authToken', () => {
     await authToken(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockNext).toHaveBeenCalledWith(
-      new UnAuthorizedError('Authorization header is missing or invalid')
+      new UnauthorizedError('Authorization header is missing or invalid')
     );
   });
 
@@ -44,7 +44,7 @@ describe('authToken', () => {
     await authToken(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockNext).toHaveBeenCalledWith(
-      new UnAuthorizedError('Authorization header is missing or invalid')
+      new UnauthorizedError('Authorization header is missing or invalid')
     );
   });
 
@@ -55,28 +55,23 @@ describe('authToken', () => {
         authorization: 'Bearer token'
       }
     };
-    (verifyToken as jest.Mock).mockRejectedValueOnce(new UnAuthorizedError('Unauthorized'));
-
+    (verifyToken as jest.Mock).mockRejectedValueOnce(new UnauthorizedError('Unauthorized'));
     //when
     await authToken(mockReq as Request, mockRes as Response, mockNext);
-
     // then
-    expect(mockNext).toHaveBeenCalledWith(new UnAuthorizedError('Unauthorized'));
+    expect(mockNext).toHaveBeenCalledWith(new UnauthorizedError('Unauthorized'));
   });
 
-  it('should set userId and call next() if token verification is successful', async () => {
+  it('should set userId and call next function if token verification is successful', async () => {
     // given
     mockReq = {
       headers: {
         authorization: 'Bearer token'
       }
     };
-
     (verifyToken as jest.Mock).mockResolvedValueOnce({ uid: '1234' });
-
     // when
     await authToken(mockReq as Request, mockRes as Response, mockNext);
-
     // then
     expect(mockReq.userId).toBe('1234');
     expect(mockNext).toHaveBeenCalledTimes(1);

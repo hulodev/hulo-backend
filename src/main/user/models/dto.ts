@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { GenderType } from './constants';
 
 export interface RegisterUserRequest extends Request {
   body: {
@@ -8,7 +9,7 @@ export interface RegisterUserRequest extends Request {
     username: string;
     isEckist: boolean;
     dateOfBirth: string;
-    gender: string;
+    gender: GenderType;
     mailingListPreference: boolean;
   };
 }

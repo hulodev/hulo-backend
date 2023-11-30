@@ -16,4 +16,5 @@ app.get('person/get-age', asyncRoute(getAge)); // returns default 200
 
 /* user routes */
 app.post('/user/register', asyncRoute(registerUser));
+
 export default app;

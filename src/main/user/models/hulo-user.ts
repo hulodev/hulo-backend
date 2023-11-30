@@ -1,17 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-export interface HuloUserModel extends Document {
-  userId: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  username: string;
-  isEckist: boolean;
-  dateOfBirth: string;
-  gender: string;
-  mailingListPreference: boolean;
-}
-
 export interface HuloUserData {
   userId: string;
   firstName: string;
@@ -24,7 +12,9 @@ export interface HuloUserData {
   mailingListPreference: boolean;
 }
 
-const HuloSchema: Schema = new Schema(
+export interface HuloUserModel extends HuloUserData, Document {}
+
+const HuloUserSchema = new Schema(
   {
     userId: { type: String, required: true },
     firstName: { type: String, required: true },
@@ -36,7 +26,9 @@ const HuloSchema: Schema = new Schema(
     gender: { type: String, required: true },
     mailingListPreference: { type: Boolean, required: true }
   },
-  { collections: 'HuloUsers', timestamps: true }
+  { collection: 'HuloUsers', timestamps: true }
 );
 
-export default mongoose.model<HuloUserModel>('HuloUser', HuloSchema);
+const HuloUser = mongoose.model('HuloUser', HuloUserSchema);
+
+export default HuloUser;

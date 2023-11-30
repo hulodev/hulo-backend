@@ -1,21 +1,18 @@
 import HuloUser from '../../../../main/user/models/hulo-user';
 import executeRegisterUser from '../../../../main/user/services/register-user';
-import logger from '../../../../main/utils/logger';
+import { RegisterUserRequest } from '../../../../main/user/models/dto';
 
-jest.mock('../../../../main/user/models/hulo-user');
-jest.mock('../../../../main/utils/logger');
+const firstName = 'Rhee';
+const lastName = 'Bell';
+const emailAddress = 'rhbell@rh.com';
+const username = 'rhee';
+const dateOfBirth = '101010';
+const gender = 'FEMALE';
+const userId = '3555';
 
-describe('execute register user', () => {
-  const firstName = 'Rhee';
-  const lastName = 'Bell';
-  const emailAddress = 'rhbell@rh.com';
-  const username = 'rhee';
-  const dateOfBirth = '101010';
-  const gender = 'Female';
-  const userId = '3555';
-
-  const userData = {
-    userId,
+const req = {
+  userId,
+  body: {
     firstName,
     lastName,
     emailAddress,
@@ -24,17 +21,35 @@ describe('execute register user', () => {
     dateOfBirth,
     gender,
     mailingListPreference: true
-  };
+  }
+};
 
+jest.mock('../../../../main/user/models/hulo-user', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      save: jest.fn().mockResolvedValue({ userId, ...req.body })
+    };
+  });
+});
+
+describe('execute register user', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
   it('should save a hulo user and return the saved information', async () => {
-    const result = await executeRegisterUser(userData);
-
-    expect(HuloUser).toHaveBeenCalledWith(userData);
-    expect(logger.info).toHaveBeenCalledWith('Hulo User has been successfully saved.');
-    expect(result).toEqual(userData);
+    // when
+    const result = await executeRegisterUser(req as RegisterUserRequest);
+    // then
+    expect(HuloUser).toHaveBeenCalledWith({ userId, ...req.body });
+    expect(result.userId).toEqual(userId);
+    expect(result.firstName).toEqual(firstName);
+    expect(result.lastName).toEqual(lastName);
+    expect(result.emailAddress).toEqual(emailAddress);
+    expect(result.username).toEqual(username);
+    expect(result.isEckist).toBeTruthy();
+    expect(result.dateOfBirth).toEqual(dateOfBirth);
+    expect(result.gender).toEqual(gender);
+    expect(result.mailingListPreference).toBeTruthy();
   });
 });
