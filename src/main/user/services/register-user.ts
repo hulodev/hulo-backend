@@ -1,8 +1,8 @@
-import HuloUser, { HuloUserData } from '../models/hulo-user';
+import HuloUser, { HuloUserData, HuloUserModel } from '../models/hulo-user';
 import { insertNewUser } from '../../dao/user-dao/dao';
 import { RegisterUserRequest } from '../models/dto';
 
-const executeRegisterUser = async (req: RegisterUserRequest) => {
+const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserModel> => {
   const userData = req.body;
   const userInfo: HuloUserData = {
     userId: req.userId,
@@ -15,7 +15,7 @@ const executeRegisterUser = async (req: RegisterUserRequest) => {
     gender: userData.gender,
     mailingListPreference: userData.mailingListPreference
   };
-  const huloUser = new HuloUser(userInfo);
+  const huloUser: HuloUserModel = new HuloUser(userInfo);
   return await insertNewUser(huloUser);
 };
 

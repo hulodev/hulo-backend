@@ -3,7 +3,9 @@ import { UnauthorizedError } from '../../utils/errors';
 
 admin.initializeApp();
 
-/* method to verify firebase token from client */
+/**
+ * Method to verify firebase token from client
+ */
 const verifyToken = async (token: string): Promise<admin.auth.DecodedIdToken> => {
   try {
     return await admin.auth().verifyIdToken(token);

@@ -1,18 +1,35 @@
-import HuloUser from '../../../../main/user/models/hulo-user';
+import { HuloUserModel } from '../../../../main/user/models/hulo-user';
 import executeRegisterUser from '../../../../main/user/services/register-user';
 import { RegisterUserRequest } from '../../../../main/user/models/dto';
+import { insertNewUser } from '../../../../main/dao/user-dao/dao';
 
-const firstName = 'Rhee';
-const lastName = 'Bell';
-const emailAddress = 'rhbell@rh.com';
-const username = 'rhee';
-const dateOfBirth = '101010';
-const gender = 'FEMALE';
-const userId = '3555';
+jest.mock('../../../../main/dao/user-dao/dao');
 
-const req = {
-  userId,
-  body: {
+describe('execute register user', () => {
+  const firstName = 'First name';
+  const lastName = 'Last Name';
+  const emailAddress = 'email@email.com';
+  const username = 'Name';
+  const dateOfBirth = '1995-10-01';
+  const gender = 'FEMALE';
+  const userId = '3555';
+
+  const req = {
+    userId,
+    body: {
+      firstName,
+      lastName,
+      emailAddress,
+      username,
+      isEckist: true,
+      dateOfBirth,
+      gender,
+      mailingListPreference: true
+    }
+  } as RegisterUserRequest;
+
+  const executeRegisterUserResponse = {
+    userId,
     firstName,
     lastName,
     emailAddress,
@@ -21,27 +38,14 @@ const req = {
     dateOfBirth,
     gender,
     mailingListPreference: true
-  }
-};
-
-jest.mock('../../../../main/user/models/hulo-user', () => {
-  return jest.fn().mockImplementation(() => {
-    return {
-      save: jest.fn().mockResolvedValue({ userId, ...req.body })
-    };
-  });
-});
-
-describe('execute register user', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  } as HuloUserModel;
 
   it('should save a hulo user and return the saved information', async () => {
+    // given there is a valid input
+    (insertNewUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
     // when
-    const result = await executeRegisterUser(req as RegisterUserRequest);
+    const result = await executeRegisterUser(req);
     // then
-    expect(HuloUser).toHaveBeenCalledWith({ userId, ...req.body });
     expect(result.userId).toEqual(userId);
     expect(result.firstName).toEqual(firstName);
     expect(result.lastName).toEqual(lastName);

@@ -7,7 +7,6 @@ import { registerUser } from './user/controllers/user-controller';
  * This file contains all the application routes.
  * Use a comment header for each group of routes.
  */
-
 const app = Router();
 
 /* person routes */

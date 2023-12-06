@@ -37,7 +37,7 @@ class UnauthorizedError extends HuloError {
 /* custom errors - add custom errors below */
 
 class UndefinedEnvError extends HuloError {
-  constructor(message = 'ENV Variable is undefined') {
+  constructor(message: string) {
     super(500, message);
   }
 }
