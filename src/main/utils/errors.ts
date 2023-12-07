@@ -28,6 +28,18 @@ class NotFoundError extends HuloError {
   }
 }
 
+class UnauthorizedError extends HuloError {
+  constructor(message = 'Unauthorized') {
+    super(401, message);
+  }
+}
+
 /* custom errors - add custom errors below */
 
-export { HuloError, BadRequestError, NotFoundError };
+class UndefinedEnvError extends HuloError {
+  constructor(message: string) {
+    super(500, message);
+  }
+}
+
+export { HuloError, BadRequestError, NotFoundError, UnauthorizedError, UndefinedEnvError };

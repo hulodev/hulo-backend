@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import { UndefinedEnvError } from './errors';
 
 /**
  * Defines the shape of the endpoint controllers.
@@ -23,4 +24,9 @@ const asyncRoute = (routeMethod: AsyncRouteMethodType, successStatusCode = 200) 
   };
 };
 
-export { asyncRoute };
+const validateEnv = (envVarValue: string | undefined, envVar: string): string => {
+  if (!envVarValue) throw new UndefinedEnvError(`Environment variable ${envVar} is not defined`);
+  return envVarValue;
+};
+
+export { asyncRoute, validateEnv };

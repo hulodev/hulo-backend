@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { asyncRoute, AsyncRouteMethodType } from '../../../main/utils/util';
+import { asyncRoute, AsyncRouteMethodType, validateEnv } from '../../../main/utils/util';
 
 describe('AsyncRoute', () => {
   let req: Partial<Request>;
@@ -55,5 +55,21 @@ describe('AsyncRoute', () => {
 
     // then
     expect(next).toHaveBeenCalledWith(error);
+  });
+});
+
+describe('ValidateEnv', () => {
+  it('should throw an error if environment variable is not defined', () => {
+    const envVarValue = undefined;
+    const envVar = 'ENV_VAR';
+    expect(() => validateEnv(envVarValue, envVar)).toThrowError(
+      `Environment variable ${envVar} is not defined`
+    );
+  });
+
+  it('should return environment variable if it is defined', () => {
+    const envVarValue = 'test value';
+    const envVar = 'ENV_VAR';
+    expect(validateEnv(envVarValue, envVar)).toBe(envVarValue);
   });
 });
