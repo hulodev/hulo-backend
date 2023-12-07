@@ -11,8 +11,8 @@ jest.mock('../../../main/user/models/hulo-user', () => {
   });
 });
 
-const firstName = 'First Name';
-const lastName = 'Last Name';
+const firstName = 'FirstName';
+const lastName = 'LastName';
 const emailAddress = 'email@email.com';
 const username = 'Username';
 const dateOfBirth = '1990-10-01';

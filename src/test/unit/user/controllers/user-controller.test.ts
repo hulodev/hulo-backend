@@ -6,8 +6,8 @@ import { HuloUserModel } from '../../../../main/user/models/hulo-user';
 jest.mock('../../../../main/user/services/register-user');
 
 describe('register user controller', () => {
-  const firstName = 'First Name';
-  const lastName = 'Last Name';
+  const firstName = 'FirstName';
+  const lastName = 'LastName';
   const emailAddress = 'Email@email.com';
   const username = 'Username';
   const dateOfBirth = '1995-10-01';
