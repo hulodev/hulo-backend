@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { HuloError } from '../utils/errors';
-import logger from '../utils/logger';
+import { HuloError } from '../util/app/errors';
+import logger from '../util/app/logger';
 
 /**
  * Middleware function for handling all errors thrown in the application.

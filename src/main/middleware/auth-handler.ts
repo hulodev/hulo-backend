@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { UnauthorizedError } from '../utils/errors';
+import { UnauthorizedError } from '../util/app/errors';
 import verifyToken from '../external-api/firebase/firebase';
 
 /**
- * Method to decode token and get userId from the client
+ * Method to decode token and get userId from the client.
  */
 const authToken = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;

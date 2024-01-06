@@ -1,6 +1,6 @@
-import HuloUser, { HuloUserData, HuloUserModel } from '../models/hulo-user';
-import { insertNewUser } from '../../dao/user-dao/dao';
-import { RegisterUserRequest } from '../models/dto';
+import HuloUser, { HuloUserData, HuloUserModel } from '../../model/schemas/hulo-user';
+import { insertNewUser } from '../../dao/user-dao';
+import { RegisterUserRequest } from '../../model/dto/user/register-user-dto';
 
 const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserModel> => {
   const userData = req.body;

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { BadRequestError, NotFoundError } from '../../../main/utils/errors';
+import { BadRequestError, NotFoundError } from '../../../main/util/app/errors';
 import errorHandler from '../../../main/middleware/error-handler';
-import logger from '../../../main/utils/logger';
+import logger from '../../../main/util/app/logger';
 
 // mock logger to prevent it from printing entire error in the unknown error test to the console
-jest.mock('../../../main/utils/logger', () => ({
+jest.mock('../../../main/util/app/logger', () => ({
   warn: jest.fn()
 }));
 

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { asyncRoute, AsyncRouteMethodType, validateEnv } from '../../../main/utils/util';
+import { asyncRoute, AsyncRouteMethodType, validateEnv } from '../../../main/util/app/util';
 
 describe('AsyncRoute', () => {
   let req: Partial<Request>;
