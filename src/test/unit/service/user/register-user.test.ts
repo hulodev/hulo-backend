@@ -1,20 +1,21 @@
-import { RegisterUserRequest } from '../../../../main/user/models/dto';
-import { registerUser } from '../../../../main/user/controllers/user-controller';
-import executeRegisterUser from '../../../../main/user/services/register-user';
-import { HuloUserModel } from '../../../../main/user/models/hulo-user';
+import { HuloUserModel } from '../../../../main/model/schemas/hulo-user';
+import executeRegisterUser from '../../../../main/service/user/register-user';
+import { RegisterUserRequest } from '../../../../main/model/dto/user/register-user-dto';
+import { insertNewUser } from '../../../../main/dao/user-dao';
 
-jest.mock('../../../../main/user/services/register-user');
+jest.mock('../../../../main/dao/user-dao');
 
-describe('register user controller', () => {
+describe('execute register user', () => {
   const firstName = 'FirstName';
   const lastName = 'LastName';
-  const emailAddress = 'Email@email.com';
-  const username = 'Username';
+  const emailAddress = 'email@email.com';
+  const username = 'Name';
   const dateOfBirth = '1995-10-01';
   const gender = 'FEMALE';
-  const userId = '0000';
+  const userId = '3555';
 
-  const request = {
+  const req = {
+    userId,
     body: {
       firstName,
       lastName,
@@ -24,8 +25,7 @@ describe('register user controller', () => {
       dateOfBirth,
       gender,
       mailingListPreference: true
-    },
-    userId
+    }
   } as RegisterUserRequest;
 
   const executeRegisterUserResponse = {
@@ -40,15 +40,13 @@ describe('register user controller', () => {
     mailingListPreference: true
   } as HuloUserModel;
 
-  it('should call executeRegisterUser and return a user response', async () => {
+  it('should save a hulo user and return the saved information', async () => {
     // given there is a valid input
-    (executeRegisterUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
-
+    (insertNewUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
     // when
-    const result = await registerUser(request);
-
+    const result = await executeRegisterUser(req);
     // then
-    expect(executeRegisterUser).toHaveBeenCalledTimes(1);
+    expect(result.userId).toEqual(userId);
     expect(result.firstName).toEqual(firstName);
     expect(result.lastName).toEqual(lastName);
     expect(result.emailAddress).toEqual(emailAddress);

@@ -1,9 +1,9 @@
-import HuloUser, { HuloUserModel } from '../../../main/user/models/hulo-user';
-import { insertNewUser } from '../../../main/dao/user-dao/dao';
+import HuloUser, { HuloUserModel } from '../../../main/model/schemas/hulo-user';
+import { insertNewUser } from '../../../main/dao/user-dao';
 
 const saveMethod = jest.fn();
 
-jest.mock('../../../main/user/models/hulo-user', () => {
+jest.mock('../../../main/model/schemas/hulo-user', () => {
   return jest.fn().mockImplementation(() => {
     return {
       save: saveMethod

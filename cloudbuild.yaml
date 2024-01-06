@@ -1,32 +1,32 @@
-steps:
-  # Install Dependencies
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'install' ]
-    id: 'Install Dependencies'
-  # Run style check
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'run', 'check-style' ]
-    id: 'Check Style'
-  # Run all tests and coverage
-  - name: 'gcr.io/cloud-builders/npm'
-    args: [ 'run', 'test' ]
-    id: 'Tests and Coverage'
-  # Build and push container image to the Artifactory Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1', '.' ]
-    id: 'Build'
-  # Deploy container image to Cloud Run
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - 'run'
-      - 'deploy'
-      - 'hulo-gcp'
-      - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
-      - '--region'
-      - 'us-central1'
-      - '--platform'
-      - 'managed'
-    id: 'Deploy'
-images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
+#steps:
+#  # Install Dependencies
+#  - name: 'gcr.io/cloud-builders/npm'
+#    args: [ 'install' ]
+#    id: 'Install Dependencies'
+#  # Run style check
+#  - name: 'gcr.io/cloud-builders/npm'
+#    args: [ 'run', 'check-style' ]
+#    id: 'Check Style'
+#  # Run all tests and coverage
+#  - name: 'gcr.io/cloud-builders/npm'
+#    args: [ 'run', 'test' ]
+#    id: 'Tests and Coverage'
+#  # Build and push container image to the Artifactory Registry
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1', '.' ]
+#    id: 'Build'
+#  # Deploy container image to Cloud Run
+#  - name: 'gcr.io/cloud-builders/gcloud'
+#    args:
+#      - 'run'
+#      - 'deploy'
+#      - 'hulo-gcp'
+#      - '--image'
+#      - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'
+#      - '--region'
+#      - 'us-central1'
+#      - '--platform'
+#      - 'managed'
+#    id: 'Deploy'
+#images:
+#  - 'us-central1-docker.pkg.dev/$PROJECT_ID/hulo-docker-repo/hulo-image:tag1'

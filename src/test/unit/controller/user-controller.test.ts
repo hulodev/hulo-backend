@@ -1,21 +1,20 @@
-import { HuloUserModel } from '../../../../main/user/models/hulo-user';
-import executeRegisterUser from '../../../../main/user/services/register-user';
-import { RegisterUserRequest } from '../../../../main/user/models/dto';
-import { insertNewUser } from '../../../../main/dao/user-dao/dao';
+import { RegisterUserRequest } from '../../../main/model/dto/user/register-user-dto';
+import { registerUser } from '../../../main/controller/user-controller';
+import executeRegisterUser from '../../../main/service/user/register-user';
+import { HuloUserModel } from '../../../main/model/schemas/hulo-user';
 
-jest.mock('../../../../main/dao/user-dao/dao');
+jest.mock('../../../main/service/user/register-user');
 
-describe('execute register user', () => {
+describe('register user controller', () => {
   const firstName = 'FirstName';
   const lastName = 'LastName';
-  const emailAddress = 'email@email.com';
-  const username = 'Name';
+  const emailAddress = 'Email@email.com';
+  const username = 'Username';
   const dateOfBirth = '1995-10-01';
   const gender = 'FEMALE';
-  const userId = '3555';
+  const userId = '0000';
 
-  const req = {
-    userId,
+  const request = {
     body: {
       firstName,
       lastName,
@@ -25,7 +24,8 @@ describe('execute register user', () => {
       dateOfBirth,
       gender,
       mailingListPreference: true
-    }
+    },
+    userId
   } as RegisterUserRequest;
 
   const executeRegisterUserResponse = {
@@ -40,13 +40,15 @@ describe('execute register user', () => {
     mailingListPreference: true
   } as HuloUserModel;
 
-  it('should save a hulo user and return the saved information', async () => {
+  it('should call executeRegisterUser and return a user response', async () => {
     // given there is a valid input
-    (insertNewUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
+    (executeRegisterUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
+
     // when
-    const result = await executeRegisterUser(req);
+    const result = await registerUser(request);
+
     // then
-    expect(result.userId).toEqual(userId);
+    expect(executeRegisterUser).toHaveBeenCalledTimes(1);
     expect(result.firstName).toEqual(firstName);
     expect(result.lastName).toEqual(lastName);
     expect(result.emailAddress).toEqual(emailAddress);

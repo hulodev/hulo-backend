@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { UndefinedEnvError } from './errors';
 
 /**
- * Defines the shape of the endpoint controllers.
+ * Defines the shape of the endpoint controller.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AsyncRouteMethodType = (req: Request) => Promise<any>;

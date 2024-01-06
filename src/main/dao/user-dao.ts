@@ -1,8 +1,8 @@
-import logger from '../../utils/logger';
-import { HuloUserModel } from '../../user/models/hulo-user';
+import logger from '../util/app/logger';
+import { HuloUserModel } from '../model/schemas/hulo-user';
 
 /**
- * Method to insert a new user into mongodb
+ * Method to insert a new user into mongodb.
  */
 const insertNewUser = async (huloUser: HuloUserModel): Promise<HuloUserModel> => {
   try {

@@ -2,10 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import routes from './router';
 import dotenv from 'dotenv';
-import logger from './utils/logger';
+import logger from './util/app/logger';
 import errorHandler from './middleware/error-handler';
 import verifyToken from './middleware/auth-handler';
-import { validateEnv } from './utils/util';
+import { validateEnv } from './util/app/util';
 
 dotenv.config();
 

@@ -1,5 +1,5 @@
-import { HuloUserModel } from '../models/hulo-user';
-import { RegisterUserResponse } from '../models/dto';
+import { HuloUserModel } from '../../model/schemas/hulo-user';
+import { RegisterUserResponse } from '../../model/dto/user/register-user-dto';
 
 export const toRegisterUserResponse = (huloUser: HuloUserModel): RegisterUserResponse => {
   return {
