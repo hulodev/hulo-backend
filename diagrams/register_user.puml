@@ -1,0 +1,36 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant client
+participant server
+participant firebase
+database mongodb
+
+activate client
+    client -> server : call endpoint with userid\ntoken in auth header\n<back:cyan>POST/user/register
+    activate server
+        server -> server: call authToken middleware\n with request header and\nbody.
+        alt auth header missing or invalid
+            server -[#red]-> client: throw <back:orange>UnauthorizedError
+        else valid auth header
+            server -> firebase: call verifyToken() using\ntoken in auth header
+            activate firebase
+                firebase -[#green]-> server: returns decoded userid token
+            deactivate firebase
+        end
+
+        server -> server: create userInfo object with\nuserid and registration info.\ncreate mongoose model.
+        server -> mongodb: save user to database.
+        activate mongodb
+            alt error saving user
+                mongodb -[#red]-> server: throw error object
+                server -[#red]-> client: error status code
+            else successfully saved user
+                mongodb -[#green]-> server: return saved user object
+                server -[#green]-> client: success status code
+            end
+        deactivate mongodb
+    deactivate server
+deactivate client
+
+@enduml
