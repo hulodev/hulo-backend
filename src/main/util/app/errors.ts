@@ -43,4 +43,8 @@ export class UndefinedEnvError extends HuloError {
   }
 }
 
-export { HuloError, BadRequestError, NotFoundError, UnauthorizedError, UndefinedEnvError };
+export class ReverseGeocodeError extends HuloError {
+  constructor(status: number, message: string) {
+    super(status, message);
+  }
+}
