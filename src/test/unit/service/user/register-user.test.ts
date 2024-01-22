@@ -5,7 +5,7 @@ import { insertNewUser } from '../../../../main/dao/user-dao';
 
 jest.mock('../../../../main/dao/user-dao');
 
-describe('execute register user', () => {
+describe('ExecuteRegisterUser', () => {
   const firstName = 'FirstName';
   const lastName = 'LastName';
   const emailAddress = 'email@email.com';

@@ -4,7 +4,7 @@ import executeRegisterUser from '../service/user/register-user';
 import logger from '../util/app/logger';
 
 /**
- * Method to create a Hulo User.
+ * Method to register a new Hulo User.
  */
 const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
   logger.info(`Begin registration of user: ${req.userId}`);

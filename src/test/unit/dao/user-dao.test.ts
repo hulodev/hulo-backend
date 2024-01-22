@@ -43,7 +43,7 @@ const HuloUserInfo = {
   mailingListPreference: true
 };
 
-describe('Insert user to mongodb', () => {
+describe('InsertNewUser', () => {
   it('should save a document and return a saved hulo user ', async () => {
     // given
     saveMethod.mockResolvedValue(HuloUserDoc);

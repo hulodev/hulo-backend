@@ -6,7 +6,7 @@ import verifyToken from '../../../main/external-api/firebase/firebase';
 // mock firebase verifyToken
 jest.mock('../../../main/external-api/firebase/firebase');
 
-describe('authToken', () => {
+describe('AuthHandler', () => {
   let mockReq: Partial<Request>;
   let mockRes: Partial<Response>;
   let mockNext: NextFunction;
