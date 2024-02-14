@@ -17,6 +17,13 @@ describe('RegisterUser', () => {
   const dateOfBirth = '1995-10-01';
   const gender = 'FEMALE';
   const userId = '0000';
+  const location = {
+    country: 'United States',
+    countryCode: 'US',
+    countryFlag: '🇺🇸',
+    state: 'New York',
+    city: 'Brooklyn',
+  }
 
   const request = {
     body: {
@@ -27,7 +34,8 @@ describe('RegisterUser', () => {
       isEckist: true,
       dateOfBirth,
       gender,
-      mailingListPreference: true
+      mailingListPreference: true,
+      location,
     },
     userId
   } as RegisterUserRequest;
@@ -41,7 +49,8 @@ describe('RegisterUser', () => {
     isEckist: true,
     dateOfBirth,
     gender,
-    mailingListPreference: true
+    mailingListPreference: true,
+    location,
   } as HuloUserModel;
 
   it('should call executeRegisterUser and return a user response', async () => {
@@ -61,6 +70,7 @@ describe('RegisterUser', () => {
     expect(result.dateOfBirth).toEqual(dateOfBirth);
     expect(result.gender).toEqual(gender);
     expect(result.mailingListPreference).toBeTruthy();
+    expect(result.location).toEqual(location);
   });
 });
 
