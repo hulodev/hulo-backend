@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema } from 'mongoose';
+import { GetLocationResponse } from '../dto/user/get-location-dto';
 
 export interface HuloUserData {
   userId: string;
@@ -10,9 +11,18 @@ export interface HuloUserData {
   dateOfBirth: string;
   gender: string;
   mailingListPreference: boolean;
+  location: GetLocationResponse;
 }
 
 export interface HuloUserModel extends HuloUserData, Document {}
+
+const LocationSchema = new Schema({
+  country: { type: String, required: true },
+  countryCode: { type: String, required: true },
+  countryFlag: { type: String, required: true },
+  state: { type: String, required: true },
+  city: { type: String, required: true }
+});
 
 const HuloUserSchema = new Schema(
   {
@@ -24,7 +34,8 @@ const HuloUserSchema = new Schema(
     isEckist: { type: Boolean, required: true },
     dateOfBirth: { type: String, required: true },
     gender: { type: String, required: true },
-    mailingListPreference: { type: Boolean, required: true }
+    mailingListPreference: { type: Boolean, required: true },
+    location: { type: LocationSchema, required: true }
   },
   { collection: 'HuloUsers', timestamps: true }
 );

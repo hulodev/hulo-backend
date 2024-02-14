@@ -12,7 +12,14 @@ export const toRegisterUserResponse = (huloUser: HuloUserModel): RegisterUserRes
     isEckist: huloUser.isEckist,
     dateOfBirth: huloUser.dateOfBirth,
     gender: huloUser.gender,
-    mailingListPreference: huloUser.mailingListPreference
+    mailingListPreference: huloUser.mailingListPreference,
+    location: {
+      country: huloUser.location.country,
+      countryCode: huloUser.location.countryCode,
+      countryFlag: huloUser.location.countryFlag,
+      state: huloUser.location.state,
+      city: huloUser.location.city,
+    }
   };
 };
 

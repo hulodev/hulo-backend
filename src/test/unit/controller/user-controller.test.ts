@@ -1,10 +1,10 @@
 import { RegisterUserRequest } from '../../../main/model/dto/user/register-user-dto';
-import {getLocation, registerUser} from '../../../main/controller/user-controller';
+import { getLocation, registerUser } from '../../../main/controller/user-controller';
 import executeRegisterUser from '../../../main/service/user/register-user';
 import { HuloUserModel } from '../../../main/model/schemas/hulo-user';
-import {RadarLocationResponse} from "../../../main/external-api/radar/dto";
-import reverseGeocode from "../../../main/external-api/radar/radar";
-import {GetLocationRequest} from "../../../main/model/dto/user/get-location-dto";
+import { RadarLocationResponse } from '../../../main/external-api/radar/dto';
+import reverseGeocode from '../../../main/external-api/radar/radar';
+import { GetLocationRequest } from '../../../main/model/dto/user/get-location-dto';
 
 jest.mock('../../../main/service/user/register-user');
 jest.mock('../../../main/external-api/radar/radar');

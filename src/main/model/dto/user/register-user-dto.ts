@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { GetLocationResponse } from './get-location-dto';
 
 export interface RegisterUserRequest extends Request {
   body: {
@@ -10,6 +11,7 @@ export interface RegisterUserRequest extends Request {
     dateOfBirth: string;
     gender: string;
     mailingListPreference: boolean;
+    location: GetLocationResponse;
   };
 }
 
@@ -22,4 +24,5 @@ export interface RegisterUserResponse {
   dateOfBirth: string;
   gender: string;
   mailingListPreference: boolean;
+  location: GetLocationResponse;
 }

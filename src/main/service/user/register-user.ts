@@ -13,7 +13,14 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserMo
     isEckist: userData.isEckist,
     dateOfBirth: userData.dateOfBirth,
     gender: userData.gender,
-    mailingListPreference: userData.mailingListPreference
+    mailingListPreference: userData.mailingListPreference,
+    location: {
+      country: userData.location.country,
+      countryCode: userData.location.countryCode,
+      countryFlag: userData.location.countryFlag,
+      state: userData.location.state,
+      city: userData.location.city
+    }
   };
   const huloUser: HuloUserModel = new HuloUser(userInfo);
   return await insertNewUser(huloUser);
