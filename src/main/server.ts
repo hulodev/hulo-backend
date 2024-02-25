@@ -4,7 +4,7 @@ import routes from './router';
 import dotenv from 'dotenv';
 import logger from './util/app/logger';
 import errorHandler from './middleware/error-handler';
-import authToken from './middleware/auth-handler';
+import authHandler from './middleware/auth-handler';
 import { validateEnv } from './util/app/util';
 
 dotenv.config();
@@ -24,7 +24,7 @@ class Server {
   }
 
   private routes(): void {
-    this.app.use(authToken);
+    this.app.use(authHandler);
     this.app.use('/api', routes);
     this.app.use(errorHandler);
   }
