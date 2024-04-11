@@ -1,5 +1,4 @@
 @startuml
-'https://plantuml.com/sequence-diagram
 
 participant client
 participant server
@@ -26,7 +25,7 @@ activate client
                 mongodb -[#red]-> server: throw error object
                 server -[#red]-> client: error status code
             else successfully saved user
-                mongodb -[#green]-> server: return saved user object
+                mongodb -[#green]-> server: return success message
                 server -[#green]-> client: success status code
             end
         deactivate mongodb
