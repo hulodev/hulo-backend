@@ -6,14 +6,14 @@ import logger from '../util/app/logger';
  * Middleware function for handling all errors thrown in the application.
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction): void => {
+const errorHandler = (error: Error, _req: Request, res: Response, _next: NextFunction): void => {
   // if one of our own defined errors, return the error message and status code
-  if (err instanceof HuloError) {
-    logger.error(err.message);
-    res.status(err.status).json({ error: err.message });
+  if (error instanceof HuloError) {
+    logger.error(error.message);
+    res.status(error.status).json({ error: error.message });
   } else {
     // if an unknown error, return the error for debugging and a 500 status code
-    logger.error({ err }, 'caught unknown exception');
+    logger.error({ error }, 'caught unknown exception');
     res.status(500).json({ error: 'an unexpected error occurred' });
   }
 };
