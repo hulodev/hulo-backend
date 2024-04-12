@@ -4,8 +4,9 @@ import routes from './router';
 import dotenv from 'dotenv';
 import logger from './util/app/logger';
 import errorHandler from './middleware/error-handler';
-import verifyToken from './middleware/auth-handler';
-import { getValidatedEnv } from './util/app/util';
+import authHandler from './middleware/auth-handler';
+import { asyncRoute, getValidatedEnv } from './util/app/util';
+import { getLocation } from './controller/user-controller';
 
 dotenv.config();
 
@@ -24,7 +25,8 @@ class Server {
   }
 
   private routes(): void {
-    this.app.use(verifyToken);
+    this.app.post('api/user/get-location', asyncRoute(getLocation));
+    this.app.use(authHandler);
     this.app.use('/api', routes);
     this.app.use(errorHandler);
   }
