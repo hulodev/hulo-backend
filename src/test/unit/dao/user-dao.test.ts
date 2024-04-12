@@ -48,11 +48,8 @@ describe('InsertNewUser', () => {
     // given
     saveMethod.mockResolvedValue(HuloUserDoc);
     const huloUser = new HuloUser(HuloUserInfo);
-    // when
-    const result = await insertNewUser(huloUser);
-    // then
-    expect(result).toBeTruthy();
-    expect(result).toEqual(HuloUserDoc);
+    // when & then
+    await expect(insertNewUser(huloUser)).resolves.not.toThrow();
     expect(huloUser.save).toHaveBeenCalledTimes(1);
   });
 

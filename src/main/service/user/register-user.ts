@@ -1,8 +1,8 @@
 import HuloUser, { HuloUserData, HuloUserModel } from '../../model/schemas/hulo-user';
 import { insertNewUser } from '../../dao/user-dao';
-import { RegisterUserRequest } from '../../model/dto/user/register-user-dto';
+import {RegisterUserRequest, RegisterUserResponse} from '../../model/dto/user/register-user-dto';
 
-const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserModel> => {
+const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
   const userData = req.body;
   const userInfo: HuloUserData = {
     userId: req.userId,
@@ -23,7 +23,10 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserMo
     }
   };
   const huloUser: HuloUserModel = new HuloUser(userInfo);
-  return await insertNewUser(huloUser);
+  await insertNewUser(huloUser);
+  return {
+    message: 'Success',
+  }
 };
 
 export default executeRegisterUser;

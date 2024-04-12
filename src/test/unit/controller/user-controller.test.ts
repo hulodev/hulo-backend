@@ -62,15 +62,7 @@ describe('RegisterUser', () => {
 
     // then
     expect(executeRegisterUser).toHaveBeenCalledTimes(1);
-    expect(result.firstName).toEqual(firstName);
-    expect(result.lastName).toEqual(lastName);
-    expect(result.emailAddress).toEqual(emailAddress);
-    expect(result.username).toEqual(username);
-    expect(result.isEckist).toBeTruthy();
-    expect(result.dateOfBirth).toEqual(dateOfBirth);
-    expect(result.gender).toEqual(gender);
-    expect(result.mailingListPreference).toBeTruthy();
-    expect(result.location).toEqual(location);
+    expect(result.message).toEqual('Success!');
   });
 });
 

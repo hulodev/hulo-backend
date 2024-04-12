@@ -1,5 +1,5 @@
 import { RegisterUserRequest, RegisterUserResponse } from '../model/dto/user/register-user-dto';
-import { toGetLocationResponse, toRegisterUserResponse } from '../util/user/mapper';
+import { toGetLocationResponse } from '../util/user/mapper';
 import executeRegisterUser from '../service/user/register-user';
 import logger from '../util/app/logger';
 import reverseGeocode from '../external-api/radar/radar';
@@ -10,8 +10,7 @@ import { GetLocationRequest, GetLocationResponse } from '../model/dto/user/get-l
  */
 const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
   logger.info(`Begin registration of user: ${req.userId}`);
-  const user = await executeRegisterUser(req);
-  return toRegisterUserResponse(user);
+  return executeRegisterUser(req);
 };
 
 /**
