@@ -63,10 +63,12 @@ describe('GetLocation', () => {
 
   it('should return a human readable location given valid coordinates', async () => {
     // given
+    const latitude = 40.7039;
+    const longitude = -73.9867;
     const request = {
       body: {
-        latitude: 40.7039,
-        longitude: -73.9867
+        latitude,
+        longitude,
       }
     } as GetLocationRequest;
 
@@ -78,7 +80,6 @@ describe('GetLocation', () => {
       city: 'Brooklyn'
     };
 
-    // mock response
     const radarLocationResponse: RadarLocationResponse = {
       addresses: [{ ...locationDetails }]
     };
@@ -89,6 +90,7 @@ describe('GetLocation', () => {
 
     // then
     expect(reverseGeocode).toHaveBeenCalledTimes(1);
+    expect(reverseGeocode).toHaveBeenCalledWith(latitude, longitude);
     expect(result).toEqual(locationDetails);
   });
 });

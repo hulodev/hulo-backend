@@ -5,7 +5,6 @@ import { BadRequestError, ReverseGeocodeError } from '../../../main/util/app/err
 
 jest.mock('axios');
 
-// mock axios
 const mockAxios = axios as jest.Mocked<typeof axios>;
 
 describe('ReverseGeocode', () => {
@@ -17,7 +16,6 @@ describe('ReverseGeocode', () => {
     city: 'Brooklyn'
   };
 
-  // mock response
   const radarLocationResponse: RadarLocationResponse = {
     addresses: [{ ...locationDetails }]
   };
