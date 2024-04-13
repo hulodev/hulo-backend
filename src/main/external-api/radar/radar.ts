@@ -29,15 +29,15 @@ const reverseGeocode = async (lat: number, lng: number): Promise<RadarLocationRe
     return { addresses: radarLocationInfo.data.addresses };
   } catch (error: unknown) {
     if (isAxiosError(error) && error.response && 'meta' in error.response.data) {
-        const radarError = error.response.data as RadarLocationErrorResponse;
-        const { code: radarCode, message: radarMessage } = radarError.meta;
-        if (radarCode && radarMessage) {
-          logger.warn(
-            `A radar error occurred while reverse geocoding coordinates with lat: ${lat} and lng: ${lng}`
-          );
-          throw new ReverseGeocodeError(radarCode, radarMessage);
-        }
+      const radarError = error.response.data as RadarLocationErrorResponse;
+      const { code: radarCode, message: radarMessage } = radarError.meta;
+      if (radarCode && radarMessage) {
+        logger.warn(
+          `A radar error occurred while reverse geocoding coordinates with lat: ${lat} and lng: ${lng}`
+        );
+        throw new ReverseGeocodeError(radarCode, radarMessage);
       }
+    }
     logger.warn(`An unexpected error occurred while reverseGeocoding: ${error}`);
     throw error;
   }
