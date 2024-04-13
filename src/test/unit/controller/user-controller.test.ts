@@ -40,7 +40,7 @@ describe('RegisterUser', () => {
   } as RegisterUserRequest;
 
   const executeRegisterUserResponse = {
-    message: 'Success!',
+    message: 'Success!'
   };
 
   it('should call executeRegisterUser and return a user response', async () => {
