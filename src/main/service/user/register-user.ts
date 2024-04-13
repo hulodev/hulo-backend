@@ -11,6 +11,7 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUs
     userId: req.userId
   };
   const locationModel = new Location(locationInfo);
+  // todo: address updating the location if one exists or use a transactional session
   const savedLocation = await saveLocation(locationModel);
 
   const userInfo = {
