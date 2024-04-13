@@ -6,9 +6,11 @@ import { saveLocation } from '../../dao/location-dao';
 
 const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
   const userData = req.body;
+  const userId = req.userId;
+
   const locationInfo: LocationData = {
     ...userData.location,
-    userId: req.userId
+    userId,
   };
   const locationModel = new Location(locationInfo);
   // todo: address updating the location if one exists or use a transactional session
@@ -16,6 +18,7 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUs
 
   const userInfo = {
     ...userData,
+    userId,
     location: savedLocation._id
   };
   const huloUser: HuloUserModel = new HuloUser(userInfo);

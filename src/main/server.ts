@@ -25,7 +25,7 @@ class Server {
   }
 
   private routes(): void {
-    this.app.post('api/user/get-location', asyncRoute(getLocation));
+    this.app.post('/api/user/location', asyncRoute(getLocation));
     this.app.use(authHandler);
     this.app.use('/api', routes);
     this.app.use(errorHandler);

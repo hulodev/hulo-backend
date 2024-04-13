@@ -18,7 +18,7 @@ const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserRespo
  */
 const getLocation = async (req: GetLocationRequest): Promise<GetLocationResponse> => {
   const { latitude, longitude } = req.body;
-  logger.info(`Attempting lookup location for a user`);
+  logger.info(`Attempting convert location coordinates for a user`);
   const radarLocation = await reverseGeocode(latitude, longitude);
   return toGetLocationResponse(radarLocation);
 };
