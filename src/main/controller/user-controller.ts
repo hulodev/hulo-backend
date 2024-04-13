@@ -14,11 +14,11 @@ const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserRespo
 };
 
 /**
- * Method to get a user's address given location coordinates.
+ * Method to get a user's location given location coordinates.
  */
 const getLocation = async (req: GetLocationRequest): Promise<GetLocationResponse> => {
   const { latitude, longitude } = req.body;
-  logger.info(`Attempting to get location for user: ${req.userId}`);
+  logger.info(`Attempting lookup location for a user`);
   const radarLocation = await reverseGeocode(latitude, longitude);
   return toGetLocationResponse(radarLocation);
 };

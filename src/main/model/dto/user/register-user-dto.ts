@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { GetLocationResponse } from './get-location-dto';
+import { LocationData } from '../../schemas/location';
 
 export interface RegisterUserRequest extends Request {
   body: {
@@ -11,18 +11,10 @@ export interface RegisterUserRequest extends Request {
     dateOfBirth: string;
     gender: string;
     mailingListPreference: boolean;
-    location: GetLocationResponse;
+    location: LocationData;
   };
 }
 
 export interface RegisterUserResponse {
-  firstName: string;
-  lastName: string;
-  username: string;
-  emailAddress: string;
-  isEckist: boolean;
-  dateOfBirth: string;
-  gender: string;
-  mailingListPreference: boolean;
-  location: GetLocationResponse;
+  message: string;
 }

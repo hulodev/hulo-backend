@@ -1,9 +1,10 @@
-import { HuloUserModel } from '../../../../main/model/schemas/hulo-user';
 import executeRegisterUser from '../../../../main/service/user/register-user';
 import { RegisterUserRequest } from '../../../../main/model/dto/user/register-user-dto';
 import { insertNewUser } from '../../../../main/dao/user-dao';
+import { saveLocation } from '../../../../main/dao/location-dao';
 
 jest.mock('../../../../main/dao/user-dao');
+jest.mock('../../../../main/dao/location-dao');
 
 describe('ExecuteRegisterUser', () => {
   const firstName = 'FirstName';
@@ -18,8 +19,8 @@ describe('ExecuteRegisterUser', () => {
     countryCode: 'US',
     countryFlag: '🇺🇸',
     state: 'New York',
-    city: 'Brooklyn',
-  }
+    city: 'Brooklyn'
+  };
 
   const req = {
     userId,
@@ -37,24 +38,18 @@ describe('ExecuteRegisterUser', () => {
   } as RegisterUserRequest;
 
   const executeRegisterUserResponse = {
-    userId,
-    firstName,
-    lastName,
-    emailAddress,
-    username,
-    isEckist: true,
-    dateOfBirth,
-    gender,
-    mailingListPreference: true,
-    location,
-  } as HuloUserModel;
+    message: 'Success!'
+  };
 
   it('should save a hulo user and return the saved information', async () => {
     // given there is a valid input
-    (insertNewUser as jest.Mock).mockResolvedValue(executeRegisterUserResponse);
+    (saveLocation as jest.Mock).mockResolvedValue({});
+    (insertNewUser as jest.Mock).mockResolvedValue({});
     // when
     const result = await executeRegisterUser(req);
     // then
-    expect(result.message).toEqual('Success!');
+    expect(result).toEqual(executeRegisterUserResponse);
+    expect(insertNewUser).toHaveBeenCalledTimes(1);
+    expect(saveLocation).toHaveBeenCalledTimes(1);
   });
 });

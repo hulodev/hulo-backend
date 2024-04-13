@@ -1,7 +1,6 @@
 import { RegisterUserRequest } from '../../../main/model/dto/user/register-user-dto';
 import { getLocation, registerUser } from '../../../main/controller/user-controller';
 import executeRegisterUser from '../../../main/service/user/register-user';
-import { HuloUserModel } from '../../../main/model/schemas/hulo-user';
 import { RadarLocationResponse } from '../../../main/external-api/radar/dto';
 import reverseGeocode from '../../../main/external-api/radar/radar';
 import { GetLocationRequest } from '../../../main/model/dto/user/get-location-dto';
@@ -22,8 +21,8 @@ describe('RegisterUser', () => {
     countryCode: 'US',
     countryFlag: '🇺🇸',
     state: 'New York',
-    city: 'Brooklyn',
-  }
+    city: 'Brooklyn'
+  };
 
   const request = {
     body: {
@@ -35,23 +34,14 @@ describe('RegisterUser', () => {
       dateOfBirth,
       gender,
       mailingListPreference: true,
-      location,
+      location
     },
     userId
   } as RegisterUserRequest;
 
   const executeRegisterUserResponse = {
-    userId,
-    firstName,
-    lastName,
-    emailAddress,
-    username,
-    isEckist: true,
-    dateOfBirth,
-    gender,
-    mailingListPreference: true,
-    location,
-  } as HuloUserModel;
+    message: 'Success!',
+  };
 
   it('should call executeRegisterUser and return a user response', async () => {
     // given there is a valid input
@@ -62,7 +52,7 @@ describe('RegisterUser', () => {
 
     // then
     expect(executeRegisterUser).toHaveBeenCalledTimes(1);
-    expect(result.message).toEqual('Success!');
+    expect(result).toEqual(executeRegisterUserResponse);
   });
 });
 
