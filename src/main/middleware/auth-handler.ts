@@ -5,7 +5,7 @@ import verifyToken from '../external-api/firebase/firebase';
 /**
  * Method to decode token and get userId from the client.
  */
-const authToken = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+const authHandler = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -22,4 +22,4 @@ const authToken = async (req: Request, _res: Response, next: NextFunction): Prom
   }
 };
 
-export default authToken;
+export default authHandler;
