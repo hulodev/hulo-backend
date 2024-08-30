@@ -7,6 +7,7 @@ import errorHandler from './middleware/error-handler';
 import authHandler from './middleware/auth-handler';
 import { asyncRoute, getValidatedEnv } from './util/app/util';
 import { getLocation } from './controller/user-controller';
+import { validateEnv } from './util/app/util';
 
 dotenv.config();
 

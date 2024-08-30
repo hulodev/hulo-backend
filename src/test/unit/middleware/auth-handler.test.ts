@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import authToken from '../../../main/middleware/auth-handler';
+import authHandler from '../../../main/middleware/auth-handler';
 import { UnauthorizedError } from '../../../main/util/app/errors';
 import verifyToken from '../../../main/external-api/firebase/firebase';
 
@@ -25,7 +25,7 @@ describe('AuthHandler', () => {
       headers: {}
     };
     // when
-    await authToken(mockReq as Request, mockRes as Response, mockNext);
+    await authHandler(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockNext).toHaveBeenCalledWith(
       new UnauthorizedError('Authorization header is missing or invalid')
@@ -40,7 +40,7 @@ describe('AuthHandler', () => {
       }
     };
     // when
-    await authToken(mockReq as Request, mockRes as Response, mockNext);
+    await authHandler(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockNext).toHaveBeenCalledWith(
       new UnauthorizedError('Authorization header is missing or invalid')
@@ -56,7 +56,7 @@ describe('AuthHandler', () => {
     };
     (verifyToken as jest.Mock).mockRejectedValueOnce(new UnauthorizedError('Unauthorized'));
     //when
-    await authToken(mockReq as Request, mockRes as Response, mockNext);
+    await authHandler(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockNext).toHaveBeenCalledWith(new UnauthorizedError('Unauthorized'));
   });
@@ -70,7 +70,7 @@ describe('AuthHandler', () => {
     };
     (verifyToken as jest.Mock).mockResolvedValueOnce({ uid: '1234' });
     // when
-    await authToken(mockReq as Request, mockRes as Response, mockNext);
+    await authHandler(mockReq as Request, mockRes as Response, mockNext);
     // then
     expect(mockReq.userId).toBe('1234');
     expect(mockNext).toHaveBeenCalledTimes(1);
