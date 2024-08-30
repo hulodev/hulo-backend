@@ -41,10 +41,10 @@ describe('ExecuteRegisterUser', () => {
     message: 'Success!'
   };
 
-  it('should save a hulo user and return the saved information', async () => {
+  it('should save a hulo user and location', async () => {
     // given there is a valid input
-    (saveLocation as jest.Mock).mockResolvedValue({});
     (insertNewUser as jest.Mock).mockResolvedValue({});
+    (saveLocation as jest.Mock).mockResolvedValue({});
     // when
     const result = await executeRegisterUser(req);
     // then

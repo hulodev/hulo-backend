@@ -10,7 +10,6 @@ export interface HuloUserData {
   dateOfBirth: string;
   gender: string;
   mailingListPreference: boolean;
-  location: mongoose.Types.ObjectId;
 }
 
 export interface HuloUserModel extends HuloUserData, Document {}
@@ -26,7 +25,6 @@ const HuloUserSchema = new Schema(
     dateOfBirth: { type: String, required: true },
     gender: { type: String, required: true },
     mailingListPreference: { type: Boolean, required: true },
-    location: { type: Schema.Types.ObjectId, ref: 'Location', required: true }
   },
   { collection: 'HuloUsers', timestamps: true }
 );

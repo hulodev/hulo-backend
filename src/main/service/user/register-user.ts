@@ -8,21 +8,20 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUs
   const userData = req.body;
   const userId = req.userId;
 
+  const userInfo = {
+    ...userData,
+    userId,
+  };
+  const huloUser: HuloUserModel = new HuloUser(userInfo);
+  await insertNewUser(huloUser);
+
   const locationInfo: LocationData = {
     ...userData.location,
     userId,
   };
   const locationModel = new Location(locationInfo);
-  // todo: address updating the location if one exists or use a transactional session
-  const savedLocation = await saveLocation(locationModel);
-
-  const userInfo = {
-    ...userData,
-    userId,
-    location: savedLocation._id
-  };
-  const huloUser: HuloUserModel = new HuloUser(userInfo);
-  await insertNewUser(huloUser);
+  await saveLocation(locationModel);
+  
   return {
     message: 'Success!'
   };
