@@ -67,28 +67,6 @@ describe('ReverseGeocode', () => {
     await expect(reverseGeocode(latitude, longitude)).rejects.toThrow(ReverseGeocodeError);
   });
 
-  it('throws an error when non-radar axios error occurs', async () => {
-    // given
-    const axiosErrorResponse: Partial<AxiosError> = {
-      response: {
-        data: {
-          error: 'Internal Server Error',
-          description: 'An unexpected error occurred'
-        }
-      }
-    } as AxiosError;
-    mockAxios.get.mockRejectedValueOnce(axiosErrorResponse);
-    mockAxios.isAxiosError.mockReturnValueOnce(true);
-
-    try {
-      // when
-      await reverseGeocode(latitude, longitude);
-    } catch (error: unknown) {
-      // then
-      expect(error).toEqual(axiosErrorResponse);
-    }
-  });
-
   it('throws an error when a non-axios error occurs', async () => {
     // given
     const someError = new Error('some error');

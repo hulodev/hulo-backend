@@ -19,7 +19,7 @@ const dateOfBirth = '1990-10-01';
 const gender = 'FEMALE';
 const userId = '3555';
 
-const HuloUserDoc = {
+const huloUserModel = {
   userId,
   firstName,
   lastName,
@@ -44,10 +44,11 @@ const HuloUserInfo = {
 };
 
 describe('InsertNewUser', () => {
-  it('should save a document and return a saved hulo user ', async () => {
+  it('should save a new hulo user document', async () => {
     // given
-    saveMethod.mockResolvedValue(HuloUserDoc);
+    saveMethod.mockResolvedValue(huloUserModel);
     const huloUser = new HuloUser(HuloUserInfo);
+
     // when & then
     await expect(insertNewUser(huloUser)).resolves.not.toThrow();
     expect(huloUser.save).toHaveBeenCalledTimes(1);
@@ -58,7 +59,8 @@ describe('InsertNewUser', () => {
     const huloUser = new HuloUser(HuloUserInfo);
     const error = new Error('Insert New User Error');
     saveMethod.mockRejectedValue(error);
-    // then
+
+    // when & then
     await expect(insertNewUser(huloUser)).rejects.toThrow(error);
   });
 });

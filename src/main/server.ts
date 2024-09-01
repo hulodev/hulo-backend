@@ -1,12 +1,12 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import routes from './router';
+import routes from './routes/router';
+import xroutes from './routes/noauth-router';
 import dotenv from 'dotenv';
 import logger from './util/app/logger';
 import errorHandler from './middleware/error-handler';
 import authHandler from './middleware/auth-handler';
-import { asyncRoute, getValidatedEnv } from './util/app/util';
-import { getLocation } from './controller/user-controller';
+import { getValidatedEnv } from './util/app/util';
 
 dotenv.config();
 
@@ -25,7 +25,7 @@ class Server {
   }
 
   private routes(): void {
-    this.app.post('/api/user/location', asyncRoute(getLocation));
+    this.app.use('/x', xroutes);
     this.app.use(authHandler);
     this.app.use('/api', routes);
     this.app.use(errorHandler);
