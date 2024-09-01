@@ -24,7 +24,7 @@ const HuloUserSchema = new Schema(
     isEckist: { type: Boolean, required: true },
     dateOfBirth: { type: String, required: true },
     gender: { type: String, required: true },
-    mailingListPreference: { type: Boolean, required: true },
+    mailingListPreference: { type: Boolean, required: true }
   },
   { collection: 'HuloUsers', timestamps: true }
 );

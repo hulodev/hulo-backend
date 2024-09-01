@@ -68,7 +68,7 @@ describe('GetLocation', () => {
     const request = {
       body: {
         latitude,
-        longitude,
+        longitude
       }
     } as GetLocationRequest;
 

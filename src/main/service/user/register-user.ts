@@ -10,18 +10,18 @@ const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUs
 
   const userInfo = {
     ...userData,
-    userId,
+    userId
   };
   const huloUser: HuloUserModel = new HuloUser(userInfo);
   await insertNewUser(huloUser);
 
   const locationInfo: LocationData = {
     ...userData.location,
-    userId,
+    userId
   };
   const locationModel = new Location(locationInfo);
   await saveLocation(locationModel);
-  
+
   return {
     message: 'Success!'
   };

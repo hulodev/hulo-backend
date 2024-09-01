@@ -1,6 +1,6 @@
-import {asyncRoute} from "../util/app/util";
-import {getLocation} from "../controller/user-controller";
-import {Router} from "express";
+import { asyncRoute } from '../util/app/util';
+import { getLocation } from '../controller/user-controller';
+import { Router } from 'express';
 
 /**
  * This file contains application routes that need to bypass authentication.
