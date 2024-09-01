@@ -16,7 +16,7 @@ export interface HuloUserModel extends HuloUserData, Document {}
 
 const HuloUserSchema = new Schema(
   {
-    userId: { type: String, required: true },
+    userId: { type: String, required: true, index: true, unique: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     emailAddress: { type: String, required: true },

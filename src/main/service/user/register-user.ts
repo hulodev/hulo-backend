@@ -1,22 +1,30 @@
-import HuloUser, { HuloUserData, HuloUserModel } from '../../model/schemas/hulo-user';
+import HuloUser, { HuloUserModel } from '../../model/schemas/hulo-user';
 import { insertNewUser } from '../../dao/user-dao';
-import { RegisterUserRequest } from '../../model/dto/user/register-user-dto';
+import { RegisterUserRequest, RegisterUserResponse } from '../../model/dto/user/register-user-dto';
+import Location, { LocationData } from '../../model/schemas/location';
+import { saveLocation } from '../../dao/location-dao';
 
-const executeRegisterUser = async (req: RegisterUserRequest): Promise<HuloUserModel> => {
+const executeRegisterUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
   const userData = req.body;
-  const userInfo: HuloUserData = {
-    userId: req.userId,
-    firstName: userData.firstName,
-    lastName: userData.lastName,
-    emailAddress: userData.emailAddress,
-    username: userData.username,
-    isEckist: userData.isEckist,
-    dateOfBirth: userData.dateOfBirth,
-    gender: userData.gender,
-    mailingListPreference: userData.mailingListPreference
+  const userId = req.userId;
+
+  const userInfo = {
+    ...userData,
+    userId
   };
   const huloUser: HuloUserModel = new HuloUser(userInfo);
-  return await insertNewUser(huloUser);
+  await insertNewUser(huloUser);
+
+  const locationInfo: LocationData = {
+    ...userData.location,
+    userId
+  };
+  const locationModel = new Location(locationInfo);
+  await saveLocation(locationModel);
+
+  return {
+    message: 'Success!'
+  };
 };
 
 export default executeRegisterUser;

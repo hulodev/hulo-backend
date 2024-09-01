@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { asyncRoute } from './util/app/util';
-import { registerUser } from './controller/user-controller';
+import { asyncRoute } from '../util/app/util';
+import { registerUser } from '../controller/user-controller';
 
 /**
  * This file contains all the application routes.

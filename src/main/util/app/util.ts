@@ -24,9 +24,10 @@ const asyncRoute = (routeMethod: AsyncRouteMethodType, successStatusCode = 200) 
   };
 };
 
-const validateEnv = (envVarValue: string | undefined, envVar: string): string => {
+const getValidatedEnv = (envVar: string): string => {
+  const envVarValue = process.env[envVar];
   if (!envVarValue) throw new UndefinedEnvError(`Environment variable ${envVar} is not defined`);
   return envVarValue;
 };
 
-export { asyncRoute, validateEnv };
+export { asyncRoute, getValidatedEnv };

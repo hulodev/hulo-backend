@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { asyncRoute, AsyncRouteMethodType, validateEnv } from '../../../main/util/app/util';
+import { asyncRoute, AsyncRouteMethodType, getValidatedEnv } from '../../../main/util/app/util';
 
 describe('AsyncRoute', () => {
   let req: Partial<Request>;
@@ -58,18 +58,30 @@ describe('AsyncRoute', () => {
   });
 });
 
-describe('ValidateEnv', () => {
+describe('GetValidatedEnv', () => {
+  const actualEnv = process.env; // make copy of original env
+
+  beforeEach(() => {
+    jest.resetModules();
+    process.env = { ...actualEnv }; // reset before each test
+  });
+
+  afterAll(() => {
+    process.env = actualEnv; // reset back to original after all tests
+  });
+
   it('should throw an error if environment variable is not defined', () => {
-    const envVarValue = undefined;
     const envVar = 'ENV_VAR';
-    expect(() => validateEnv(envVarValue, envVar)).toThrowError(
+    delete process.env[envVar]; // make it undefined
+    expect(() => getValidatedEnv(envVar)).toThrowError(
       `Environment variable ${envVar} is not defined`
     );
   });
 
   it('should return environment variable if it is defined', () => {
-    const envVarValue = 'test value';
     const envVar = 'ENV_VAR';
-    expect(validateEnv(envVarValue, envVar)).toBe(envVarValue);
+    const envVarValue = 'test value';
+    process.env[envVar] = envVarValue; // set the value
+    expect(getValidatedEnv(envVar)).toBe(envVarValue);
   });
 });

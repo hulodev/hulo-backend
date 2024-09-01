@@ -8,10 +8,10 @@
     "compile": "tsc --project tsconfig.json",
     "build": "npm run clean && npm run compile",
     "test": "jest",
-    "start-dev": "nodemon --exec ts-node src/main/main.ts",
+    "dev": "nodemon --exec ts-node src/main/main.ts",
     "start": "ts-node src/main/main.ts",
-    "pre-push": "npm run build && npm run style && npm run test",
-    "style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'",
+    "pre-push": "npm run build && npm run fix-style && npm run test",
+    "fix-style": "eslint '*/**/*.{ts,js}' --fix && prettier --write '**/*.{ts,js,json}'",
     "check-style": "eslint '*/**/*.{ts,js}' && prettier --check '**/*.{ts,js,json}'"
   },
   "author": "Hulo",
@@ -36,6 +36,7 @@
     "typescript": "^5.1.3"
   },
   "dependencies": {
+    "axios": "^1.6.7",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "firebase-admin": "^11.10.1",

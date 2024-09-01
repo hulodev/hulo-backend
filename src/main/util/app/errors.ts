@@ -1,7 +1,7 @@
 /**
  * An abstract base error which all custom hulo errors will extend.
  */
-abstract class HuloError extends Error {
+export abstract class HuloError extends Error {
   status: number;
   // protect the constructor to prevent direct instantiation of the class.
   protected constructor(status: number, message: string) {
@@ -16,19 +16,20 @@ abstract class HuloError extends Error {
 
 /* http errors - add http errors below */
 
-class BadRequestError extends HuloError {
+export class BadRequestError extends HuloError {
   constructor(message = 'Bad Request') {
     super(400, message);
   }
 }
 
-class NotFoundError extends HuloError {
-  constructor(message = 'Not Found') {
-    super(404, message);
-  }
-}
+// todo: uncomment when ready to use this error in code
+// export class NotFoundError extends HuloError {
+//   constructor(message = 'Not Found') {
+//     super(404, message);
+//   }
+// }
 
-class UnauthorizedError extends HuloError {
+export class UnauthorizedError extends HuloError {
   constructor(message = 'Unauthorized') {
     super(401, message);
   }
@@ -36,10 +37,14 @@ class UnauthorizedError extends HuloError {
 
 /* custom errors - add custom errors below */
 
-class UndefinedEnvError extends HuloError {
+export class UndefinedEnvError extends HuloError {
   constructor(message: string) {
     super(500, message);
   }
 }
 
-export { HuloError, BadRequestError, NotFoundError, UnauthorizedError, UndefinedEnvError };
+export class ReverseGeocodeError extends HuloError {
+  constructor(status: number, message: string) {
+    super(status, message);
+  }
+}
