@@ -4,6 +4,7 @@ import executeRegisterUser from '../../../main/service/user/register-user';
 import { RadarLocationResponse } from '../../../main/external-api/radar/dto';
 import reverseGeocode from '../../../main/external-api/radar/radar';
 import { GetLocationRequest } from '../../../main/model/dto/user/get-location-dto';
+import { BadRequestError } from '../../../main/util/app/errors';
 
 jest.mock('../../../main/service/user/register-user');
 jest.mock('../../../main/external-api/radar/radar');
@@ -53,6 +54,23 @@ describe('RegisterUser', () => {
     // then
     expect(executeRegisterUser).toHaveBeenCalledTimes(1);
     expect(result).toEqual(executeRegisterUserResponse);
+  });
+
+  it('should throw error on null gender in request', async () => {
+    // given
+    const invalidRequest = {
+      body: {
+        ...request.body,
+        gender: 'nobody'
+      }
+    };
+
+    // when & then
+    await expect(registerUser(invalidRequest as RegisterUserRequest)).rejects.toThrow(
+      new BadRequestError(
+        'Invalid gender: nobody. Supported values: male, female, non_binary, other'
+      )
+    );
   });
 });
 

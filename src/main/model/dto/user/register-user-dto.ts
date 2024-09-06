@@ -1,5 +1,7 @@
 import { Request } from 'express';
 import { LocationData } from '../../schemas/location';
+import { BadRequestError } from '../../../util/app/errors';
+import { Gender } from '../../constants/user-constants';
 
 export interface RegisterUserRequest extends Request {
   body: {
@@ -18,3 +20,12 @@ export interface RegisterUserRequest extends Request {
 export interface RegisterUserResponse {
   message: string;
 }
+
+export const validateRegisterUserRequestParams = (req: RegisterUserRequest): void => {
+  const { gender } = req.body;
+  if (!Object.values(Gender).includes(gender.toLowerCase() as Gender)) {
+    throw new BadRequestError(
+      `Invalid gender: ${gender}. Supported values: ${Object.values(Gender).join(', ')}`
+    );
+  }
+};

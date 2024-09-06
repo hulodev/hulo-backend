@@ -1,4 +1,8 @@
-import { RegisterUserRequest, RegisterUserResponse } from '../model/dto/user/register-user-dto';
+import {
+  RegisterUserRequest,
+  RegisterUserResponse,
+  validateRegisterUserRequestParams
+} from '../model/dto/user/register-user-dto';
 import { toGetLocationResponse } from '../util/user/mapper';
 import executeRegisterUser from '../service/user/register-user';
 import logger from '../util/app/logger';
@@ -9,6 +13,7 @@ import { GetLocationRequest, GetLocationResponse } from '../model/dto/user/get-l
  * Method to register a new Hulo User.
  */
 const registerUser = async (req: RegisterUserRequest): Promise<RegisterUserResponse> => {
+  validateRegisterUserRequestParams(req);
   logger.info(`Begin registration of user: ${req.userId}`);
   return executeRegisterUser(req);
 };
