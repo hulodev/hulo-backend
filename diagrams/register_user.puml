@@ -1,0 +1,35 @@
+@startuml
+
+participant client
+participant server
+participant firebase
+database mongodb
+
+activate client
+    client -> server : call endpoint with userId\ntoken in auth header\n<back:cyan>POST/user/register
+    activate server
+        server -> server: call authToken middleware\n with request header and\nbody.
+        alt auth header missing or invalid
+            server -[#red]-> client: throw <back:orange>UnauthorizedError
+        else valid auth header
+            server -> firebase: call verifyToken() using\ntoken in auth header
+            activate firebase
+                firebase -[#green]-> server: returns decoded userId token
+            deactivate firebase
+        end
+
+        server -> server: call executeRegisterUser(): \ncreate userInfo object and create a mongoose model.
+        server -> mongodb: call insertNewUser(): save user to database.
+        activate mongodb
+            alt error saving user
+                mongodb -[#red]-> server: throw error object
+                server -[#red]-> client: error status code
+            else successfully saved user
+                mongodb -[#green]-> server: return success message
+                server -[#green]-> client: success status code
+            end
+        deactivate mongodb
+    deactivate server
+deactivate client
+
+@enduml

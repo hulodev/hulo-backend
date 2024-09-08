@@ -36,10 +36,10 @@
     "@typescript-eslint/no-unused-expressions": ["error"],  /* Disallows expressions which have no effect on the state of the program. */
     "@typescript-eslint/no-shadow": ["error"],              /* Disallows variable declarations from shadowing variables declared in the outer scope. */
     "@typescript-eslint/no-unused-vars": ["error"],         /* An error will be raised if you declare a variable, function, or import that's never used. */
-    "@typescript-eslint/explicit-module-boundary-types": ["error"], /* Enforces explicit return and argument types on exported functions' and classes' public class methods. */
+    "@typescript-eslint/explicit-module-boundary-types": ["error"], /* Enforces explicit return and argument @types on exported functions' and classes' public class methods. */
     "@typescript-eslint/explicit-function-return-type": ["error"],  /* Requires functions to have a explicitly declared return type */
     "@typescript-eslint/no-explicit-any": ["warn"],         /* Warns on explicit usage of 'any' type. */
-    "@typescript-eslint/no-redeclare": ["error"],           /* Disallows redeclaring variables or types. */
+    "@typescript-eslint/no-redeclare": ["error"],           /* Disallows redeclaring variables or @types. */
     "@typescript-eslint/no-unnecessary-condition": ["warn"],/* Warns when a condition has no effect on whether code is executed. */
     "@typescript-eslint/no-implicit-any-catch": ["warn"]    /* Warns on error catch clauses which implicitly have an 'any' type. */
   }
