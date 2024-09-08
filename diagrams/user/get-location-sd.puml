@@ -1,0 +1,29 @@
+@startuml
+
+participant client
+participant server
+entity radarApi as radar #purple
+
+title "Get Location Sequence Flow"
+
+client++
+client -> server++: call endpoint with coordinates \n<back:cyan>POST/x/user/location
+    server -> server: call reverseGeocode() \nwith coordinates
+    alt invalid coordinates
+        server -[#red]-> client: throw <back:orange>BadRequestError
+    else valid coordinates
+        server -> radar++: reverse geocode coordinates
+    end
+        alt radar error
+            radar -[#red]-> server: throw <back:orange>ReverseGeocodeError
+            server -[#red]-> client: return <back:orange>ReverseGeocodeError
+        else if unknown error
+            radar -[#red]-> server: throw <back:orange>error
+            server -[#red]-> client: return <back:orange>internal server error
+        else success
+        radar -[#green]-> server--: return address object
+        end
+    server -[#green]-> client--: return user location
+client--
+
+@enduml
