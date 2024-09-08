@@ -23,9 +23,12 @@ export interface RegisterUserResponse {
 
 export const validateRegisterUserRequestParams = (req: RegisterUserRequest): void => {
   const { gender } = req.body;
+  if (!gender || !gender.trim()) {
+    throw new BadRequestError(`Invalid gender: ${gender}`);
+  }
   if (!Object.values(Gender).includes(gender.toLowerCase() as Gender)) {
     throw new BadRequestError(
-      `Invalid gender: ${gender}. Supported values: ${Object.values(Gender).join(', ')}`
+      `Invalid gender: ${gender} - supported values: ${Object.values(Gender).join(', ')}`
     );
   }
 };
