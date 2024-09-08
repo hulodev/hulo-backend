@@ -69,9 +69,9 @@ describe('RegisterUser', () => {
 
       // when & then
       await expect(registerUser(invalidRequest as RegisterUserRequest)).rejects.toThrow(
-          new BadRequestError(
-              'Invalid gender: nobody - supported values: male, female, non_binary, other'
-          )
+        new BadRequestError(
+          'Invalid gender: nobody - supported values: male, female, non_binary, other'
+        )
       );
     });
 
@@ -86,7 +86,7 @@ describe('RegisterUser', () => {
 
       // when & then
       await expect(registerUser(invalidRequest as unknown as RegisterUserRequest)).rejects.toThrow(
-          new BadRequestError('Invalid gender: null')
+        new BadRequestError('Invalid gender: null')
       );
     });
 
@@ -101,7 +101,7 @@ describe('RegisterUser', () => {
 
       // when & then
       await expect(registerUser(invalidRequest as unknown as RegisterUserRequest)).rejects.toThrow(
-          new BadRequestError('Invalid gender:  ')
+        new BadRequestError('Invalid gender:  ')
       );
     });
   });
