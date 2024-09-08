@@ -4,6 +4,8 @@ import executeRegisterUser from '../../../main/service/user/register-user';
 import { RadarLocationResponse } from '../../../main/external-api/radar/dto';
 import reverseGeocode from '../../../main/external-api/radar/radar';
 import { GetLocationRequest } from '../../../main/model/dto/user/get-location-dto';
+import { BadRequestError } from '../../../main/util/app/errors';
+import { Gender } from '../../../main/model/constants/user-constants';
 
 jest.mock('../../../main/service/user/register-user');
 jest.mock('../../../main/external-api/radar/radar');
@@ -14,7 +16,7 @@ describe('RegisterUser', () => {
   const emailAddress = 'Email@email.com';
   const username = 'Username';
   const dateOfBirth = '1995-10-01';
-  const gender = 'FEMALE';
+  const gender = Gender.FEMALE;
   const userId = '0000';
   const location = {
     country: 'United States',
@@ -53,6 +55,55 @@ describe('RegisterUser', () => {
     // then
     expect(executeRegisterUser).toHaveBeenCalledTimes(1);
     expect(result).toEqual(executeRegisterUserResponse);
+  });
+
+  describe('input validation tests', () => {
+    it('should throw error on unsupported gender in request', async () => {
+      // given
+      const invalidRequest = {
+        body: {
+          ...request.body,
+          gender: 'nobody'
+        }
+      };
+
+      // when & then
+      await expect(registerUser(invalidRequest as RegisterUserRequest)).rejects.toThrow(
+        new BadRequestError(
+          'Invalid gender: nobody - supported values: male, female, non_binary, other'
+        )
+      );
+    });
+
+    it('should throw error on null gender in request', async () => {
+      // given
+      const invalidRequest = {
+        body: {
+          ...request.body,
+          gender: null
+        }
+      };
+
+      // when & then
+      await expect(registerUser(invalidRequest as unknown as RegisterUserRequest)).rejects.toThrow(
+        new BadRequestError('Invalid gender: null')
+      );
+    });
+
+    it('should throw error on empty gender in request', async () => {
+      // given
+      const invalidRequest = {
+        body: {
+          ...request.body,
+          gender: ' '
+        }
+      };
+
+      // when & then
+      await expect(registerUser(invalidRequest as unknown as RegisterUserRequest)).rejects.toThrow(
+        new BadRequestError('Invalid gender:  ')
+      );
+    });
   });
 });
 
