@@ -5,10 +5,12 @@ participant server
 participant firebase
 database mongodb
 
+title "Register User Sequence Flow"
+
 activate client
-    client -> server : call endpoint with userId\ntoken in auth header\n<back:cyan>POST/user/register
+    client -> server : call endpoint with userId\ntoken in auth header\n<back:cyan>POST/api/user/register
     activate server
-        server -> server: call authToken middleware\n with request header and\nbody.
+        server -> server: call authHandler middleware \nwith request header and\nbody.
         alt auth header missing or invalid
             server -[#red]-> client: throw <back:orange>UnauthorizedError
         else valid auth header
