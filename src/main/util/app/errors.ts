@@ -48,3 +48,9 @@ export class ReverseGeocodeError extends HuloError {
     super(status, message);
   }
 }
+
+export class ExistingUserError extends HuloError {
+  constructor(message: string) {
+    super(500, message);
+  }
+}
