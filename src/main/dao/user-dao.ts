@@ -17,7 +17,7 @@ const insertNewUser = async (huloUser: HuloUserModel): Promise<void> => {
 /**
  * Method to find a user
  */
-const findUser = async (userId: string, emailAddress: string) => {
+const findUser = async (userId: string, emailAddress: string): Promise<HuloUserModel | null> => {
   try {
     return await HuloUser.findOne({ emailAddress, userId });
   } catch (error: unknown) {
