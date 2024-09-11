@@ -1,7 +1,8 @@
 import executeRegisterUser from '../../../../main/service/user/register-user';
 import { RegisterUserRequest } from '../../../../main/model/dto/user/register-user-dto';
-import { insertNewUser } from '../../../../main/dao/user-dao';
+import { findUser, insertNewUser } from '../../../../main/dao/user-dao';
 import { saveLocation } from '../../../../main/dao/location-dao';
+import { ExistingUserError } from '../../../../main/util/app/errors';
 
 jest.mock('../../../../main/dao/user-dao');
 jest.mock('../../../../main/dao/location-dao');
@@ -41,15 +42,33 @@ describe('ExecuteRegisterUser', () => {
     message: 'Success!'
   };
 
-  it('should save a hulo user and location', async () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should save a hulo user and location if user does not exist', async () => {
     // given there is a valid input
+    (findUser as jest.Mock).mockResolvedValue(null);
     (insertNewUser as jest.Mock).mockResolvedValue({});
     (saveLocation as jest.Mock).mockResolvedValue({});
     // when
     const result = await executeRegisterUser(req);
     // then
     expect(result).toEqual(executeRegisterUserResponse);
+    expect(findUser).toHaveBeenCalledWith(userId, emailAddress);
     expect(insertNewUser).toHaveBeenCalledTimes(1);
     expect(saveLocation).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw an error if user already exists', async () => {
+    // given there is an existing user
+    const existingUser = { userId, emailAddress };
+    (findUser as jest.Mock).mockResolvedValue(existingUser);
+
+    // when & then
+    await expect(executeRegisterUser(req)).rejects.toThrow(ExistingUserError);
+    expect(findUser).toHaveBeenCalledWith(userId, emailAddress);
+    expect(insertNewUser).not.toHaveBeenCalled();
+    expect(saveLocation).not.toHaveBeenCalled();
   });
 });
